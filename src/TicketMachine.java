@@ -60,4 +60,9 @@ public class TicketMachine implements ServiceTicketMachine {
             printLock.unlock();
         }
     }
+
+    @Override
+    public int getPaperLevel() {
+        return paperLevel;
+    }
 }

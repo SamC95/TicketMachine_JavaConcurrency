@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Passenger implements Runnable {
     private static final int MAX_TICKET_PRINT = 5;
-    private TicketMachine ticketMachine;
+    private final TicketMachine ticketMachine;
 
     public Passenger(TicketMachine ticketMachine) {
         this.ticketMachine = ticketMachine;
