@@ -62,7 +62,31 @@ public class TicketMachine implements ServiceTicketMachine {
     }
 
     @Override
+    public void refillToner() {
+        printLock.lock();
+
+        try {
+            if (tonerLevel < MAX_TONER_CAPACITY) {
+                int refillToner = MAX_TONER_CAPACITY - tonerLevel;
+                System.out.println("Refilling " + refillToner + " to toner levels");
+                tonerLevel = MAX_TONER_CAPACITY;
+            }
+            else {
+                System.out.println("Toner capacity already at maximum");
+            }
+        }
+        finally {
+            printLock.unlock();
+        }
+    }
+
+    @Override
     public int getPaperLevel() {
         return paperLevel;
+    }
+
+    @Override
+    public int getTonerLevel() {
+        return tonerLevel;
     }
 }

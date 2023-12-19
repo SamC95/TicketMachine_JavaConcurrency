@@ -25,7 +25,7 @@ public class TicketPaperTechnician implements Runnable {
                 }
             }
             catch (InterruptedException error) {
-                System.out.println("Error with paper Technician tasks");
+                throw new RuntimeException(error);
             }
         }
 

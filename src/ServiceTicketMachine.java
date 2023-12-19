@@ -4,5 +4,9 @@ public interface ServiceTicketMachine {
 
     void refillPaper();
 
+    void refillToner();
+
     int getPaperLevel();
+
+    int getTonerLevel();
 }

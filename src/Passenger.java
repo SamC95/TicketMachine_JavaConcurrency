@@ -20,7 +20,7 @@ public class Passenger implements Runnable {
                 ticketMachine.printTicket();
             }
             catch (InterruptedException error) {
-                System.out.println("Passenger system error occurred");
+                throw new RuntimeException(error);
             }
         }
 
