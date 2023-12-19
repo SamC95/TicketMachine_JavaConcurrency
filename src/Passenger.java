@@ -4,7 +4,7 @@ public class Passenger implements Runnable {
     private static final int MAX_TICKET_PRINT = 5;
     private final TicketMachine ticketMachine;
 
-    public Passenger(TicketMachine ticketMachine) {
+    public Passenger(TicketMachine ticketMachine, ThreadGroup passengerGroup) {
         this.ticketMachine = ticketMachine;
     }
 

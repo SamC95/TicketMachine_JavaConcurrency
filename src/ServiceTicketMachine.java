@@ -9,4 +9,6 @@ public interface ServiceTicketMachine {
     int getPaperLevel();
 
     int getTonerLevel();
+
+    String finalTicketMachine();
 }

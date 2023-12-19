@@ -6,7 +6,7 @@ public class TicketMachine implements ServiceTicketMachine {
     private static final int INITIAL_PAPER = 3;
     private static final int MAX_PAPER_CAPACITY = 10;
     private static final int MAX_TONER_CAPACITY = 100;
-    private static final int TONER_COST = 5;
+    private static final int TONER_COST = 25;
 
     private int paperLevel;
     private int tonerLevel;
@@ -23,7 +23,7 @@ public class TicketMachine implements ServiceTicketMachine {
         printLock.lock();
 
         try {
-            if (paperLevel > 0 && tonerLevel >= 5) {
+            if (paperLevel > 0 && tonerLevel > 0) {
                 Ticket ticket = new Ticket();
                 System.out.println("Printing Ticket #" + ticket.getNumOfTickets());
                 paperLevel--;
@@ -88,5 +88,14 @@ public class TicketMachine implements ServiceTicketMachine {
     @Override
     public int getTonerLevel() {
         return tonerLevel;
+    }
+
+    @Override
+    public String finalTicketMachine() {
+        return  "--------------------------------------\n" +
+                "All threads have finished execution \n" +
+                "Paper Remaining: " + getPaperLevel() + "\n" +
+                "Toner Remaining: " + getTonerLevel();
+
     }
 }

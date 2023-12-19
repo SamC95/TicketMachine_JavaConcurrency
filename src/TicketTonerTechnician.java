@@ -11,7 +11,7 @@ public class TicketTonerTechnician implements Runnable {
     public void run() {
         final int REFILL_ATTEMPTS = 3;
 
-        for (int attempt = 0; attempt <= REFILL_ATTEMPTS; attempt++) {
+        for (int attempt = 1; attempt <= REFILL_ATTEMPTS; attempt++) {
             try {
                 int sleepTime = new Random().nextInt(5000) + 2000;
                 Thread.sleep(sleepTime);
