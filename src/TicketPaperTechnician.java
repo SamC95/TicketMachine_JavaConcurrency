@@ -1,8 +1,7 @@
 import java.util.Random;
 
 public class TicketPaperTechnician implements Runnable {
-    private static int REFILL_ATTEMPTS = 3;
-    private TicketMachine ticketMachine;
+    private final TicketMachine ticketMachine;
 
     public TicketPaperTechnician(TicketMachine ticketMachine) {
         this.ticketMachine = ticketMachine;
@@ -10,6 +9,8 @@ public class TicketPaperTechnician implements Runnable {
 
     @Override
     public void run() {
+        final int REFILL_ATTEMPTS = 3;
+
         for (int attempt = 1; attempt <= REFILL_ATTEMPTS; attempt++) {
             try {
                 int sleepTime = new Random().nextInt(5000) + 2000;
