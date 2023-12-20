@@ -18,6 +18,8 @@ public class TicketMachine implements ServiceTicketMachine {
         this.printLock = new ReentrantLock();
     }
 
+    /*Checks the levels of paper and toner, if neither are empty then prints a ticket
+     and reduces the levels appropriately, if one is empty then print the appropriate message*/
     @Override
     public void printTicket() {
         printLock.lock();
@@ -42,6 +44,7 @@ public class TicketMachine implements ServiceTicketMachine {
         }
     }
 
+    // Checks if the paper is empty, if so refills it to max capacity (10)
     @Override
     public void refillPaper() {
         printLock.lock();
@@ -61,6 +64,7 @@ public class TicketMachine implements ServiceTicketMachine {
         }
     }
 
+    // Checks if toner is empty, if so refills it to max capacity (100)
     @Override
     public void refillToner() {
         printLock.lock();

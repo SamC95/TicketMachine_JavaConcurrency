@@ -4,6 +4,7 @@ public class TicketPrintingSystem {
         TicketMachine ticketMachine = new TicketMachine();
         ThreadGroup passengerGroup = new ThreadGroup("Passenger thread group");
 
+        // Creates the appropriate passengers and technicians
         Passenger passenger1 = new Passenger(ticketMachine, passengerGroup);
         Passenger passenger2 = new Passenger(ticketMachine, passengerGroup);
         Passenger passenger3 = new Passenger(ticketMachine, passengerGroup);
@@ -11,6 +12,7 @@ public class TicketPrintingSystem {
         TicketPaperTechnician ticketPaperTechnician = new TicketPaperTechnician(ticketMachine);
         TicketTonerTechnician ticketTonerTechnician = new TicketTonerTechnician(ticketMachine);
 
+        // Assigns each passenger/technician to their own thread
         Thread passengerThread1 = new Thread(passenger1);
         Thread passengerThread2 = new Thread(passenger2);
         Thread passengerThread3 = new Thread(passenger3);
@@ -18,6 +20,7 @@ public class TicketPrintingSystem {
         Thread paperTechnicianThread = new Thread(ticketPaperTechnician);
         Thread tonerTechnicianThread = new Thread(ticketTonerTechnician);
 
+        // Start all the threads
         passengerThread1.start();
         passengerThread2.start();
         passengerThread3.start();
@@ -25,6 +28,7 @@ public class TicketPrintingSystem {
         paperTechnicianThread.start();
         tonerTechnicianThread.start();
 
+        // Checks if every thread has finished execution
         try {
             passengerThread1.join();
             passengerThread2.join();
@@ -37,6 +41,8 @@ public class TicketPrintingSystem {
             throw new RuntimeException(error);
         }
 
+        /*Prints a final status message informing that threads have finished running
+         and providing the remaining values for the paper and toner*/
         System.out.println(ticketMachine.finalTicketMachine());
     }
 }
