@@ -16,7 +16,13 @@ public class TicketMachine implements ServiceTicketMachine {
     /*Checks the levels of paper and toner, if neither are empty then prints a ticket
      and reduces the levels appropriately, if one is empty then print the appropriate message*/
     @Override
-    public synchronized void printTicket() {
+    public synchronized void printTicket() throws InterruptedException {
+        synchronized(this) {
+            if(paperLevel == 0 || tonerLevel == 0) {
+                this.wait(3000);
+            }
+        }
+
         if (paperLevel > 0 && tonerLevel > 0) {
             Ticket ticket = new Ticket();
             System.out.println("Printing Ticket #" + ticket.getNumOfTickets());
