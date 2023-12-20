@@ -10,7 +10,8 @@ public class Passenger implements Runnable {
 
     @Override
     public void run() {
-        int ticketsToPrint = new Random().nextInt(MAX_TICKET_PRINT);
+        int minimumPrint = 1;
+        int ticketsToPrint = new Random().nextInt((MAX_TICKET_PRINT - minimumPrint) + 1) + minimumPrint;
 
         for (int i = 0; i < ticketsToPrint; i++) {
             try {
