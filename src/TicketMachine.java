@@ -1,9 +1,9 @@
 public class TicketMachine implements ServiceTicketMachine {
 
     private static final int INITIAL_PAPER = 3;
-    private static final int MAX_PAPER_CAPACITY = 10;
-    private static final int MAX_TONER_CAPACITY = 100;
-    private static final int TONER_COST = 25;
+    private static final int MAX_PAPER_CAPACITY = 5;
+    private static final int MAX_TONER_CAPACITY = 50;
+    private static final int TONER_COST = 10;
 
     private int paperLevel;
     private int tonerLevel;
@@ -17,9 +17,12 @@ public class TicketMachine implements ServiceTicketMachine {
      and reduces the levels appropriately, if one is empty then print the appropriate message*/
     @Override
     public synchronized void printTicket() throws InterruptedException {
-        synchronized(this) {
-            if(paperLevel == 0 || tonerLevel == 0) {
+        while(paperLevel == 0 || tonerLevel == 0) {
+            try {
                 this.wait(3000);
+            }
+            catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -29,12 +32,6 @@ public class TicketMachine implements ServiceTicketMachine {
             paperLevel--;
 
             tonerLevel -= TONER_COST;
-        }
-        else if (paperLevel == 0) {
-            System.out.println("No paper remaining, Unable to print ticket");
-        }
-        else {
-            System.out.println("Printer out of toner, Unable to print ticket");
         }
     }
 

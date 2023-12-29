@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Passenger implements Runnable {
-    private static final int MAX_TICKET_PRINT = 5;
+    private static final int MAX_TICKET_PRINT = 10;
     private final TicketMachine ticketMachine;
 
     public Passenger(TicketMachine ticketMachine, ThreadGroup passengerGroup) {
