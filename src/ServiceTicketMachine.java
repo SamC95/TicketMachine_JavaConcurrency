@@ -10,5 +10,7 @@ public interface ServiceTicketMachine {
 
     int getTonerLevel();
 
+    int getTicketsPrinted();
+
     String finalTicketMachine();
 }

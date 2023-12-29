@@ -7,6 +7,7 @@ public class TicketMachine implements ServiceTicketMachine {
 
     private int paperLevel;
     private int tonerLevel;
+    private int ticketsPrinted;
 
     public TicketMachine() {
         this.paperLevel = INITIAL_PAPER;
@@ -29,9 +30,11 @@ public class TicketMachine implements ServiceTicketMachine {
         if (paperLevel > 0 && tonerLevel > 0) {
             Ticket ticket = new Ticket();
             System.out.println("Printing Ticket #" + ticket.getNumOfTickets());
-            paperLevel--;
 
+            paperLevel--;
             tonerLevel -= TONER_COST;
+
+            ticketsPrinted++;
         }
     }
 
@@ -75,9 +78,15 @@ public class TicketMachine implements ServiceTicketMachine {
     }
 
     @Override
+    public int getTicketsPrinted() {
+        return ticketsPrinted;
+    }
+
+    @Override
     public String finalTicketMachine() {
         return  "--------------------------------------\n" +
                 "All threads have finished execution \n" +
+                "Tickets Printed: " + getTicketsPrinted() + "\n" +
                 "Paper Remaining: " + getPaperLevel() + "\n" +
                 "Toner Remaining: " + getTonerLevel();
 
