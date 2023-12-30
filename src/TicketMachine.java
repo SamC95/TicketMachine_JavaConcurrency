@@ -38,7 +38,7 @@ public class TicketMachine implements ServiceTicketMachine {
         }
     }
 
-    // Checks if the paper is empty, if so refills it to max capacity (10)
+    // Checks if the paper is empty, if so refills it to max capacity (5)
     @Override
     public synchronized void refillPaper() {
         if (paperLevel < MAX_PAPER_CAPACITY) {

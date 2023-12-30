@@ -8,8 +8,12 @@ public class TicketTonerTechnician implements Runnable {
         this.ticketMachine = ticketMachine;
     }
 
+    /*
+        Uses the same implementation as the paper technician, see comment on TicketPaperTechnician.java for
+        more detail.
+     */
     @Override
-    public void run() {
+    public synchronized void run() {
         final int REFILL_ATTEMPTS = 3;
         int refillsComplete = 1;
         int loopsSpentWaiting = 0;
@@ -17,7 +21,7 @@ public class TicketTonerTechnician implements Runnable {
         while (refillsComplete <= REFILL_ATTEMPTS && !terminateThread) {
             try {
                 int sleepTime = new Random().nextInt(5000) + 2000;
-                Thread.sleep(sleepTime);
+                this.wait(sleepTime);
 
                 if (ticketMachine.getTonerLevel() == 0) {
                     ticketMachine.refillToner();
@@ -25,14 +29,14 @@ public class TicketTonerTechnician implements Runnable {
                     refillsComplete++;
                     loopsSpentWaiting = 0;
                 }
-                else if (loopsSpentWaiting == 3) {
+                else if (loopsSpentWaiting == 4) {
                     System.out.println("Passengers finished printing tickets, toner refill attempts stopped.");
                     stopThread();
                 }
                 else {
                     System.out.println("No toner refill needed... waiting.");
                     loopsSpentWaiting++;
-                    Thread.sleep(sleepTime);
+                    this.wait(sleepTime);
                 }
             }
             catch (InterruptedException error) {
