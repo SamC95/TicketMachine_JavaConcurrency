@@ -5,10 +5,10 @@ public class TicketPrintingSystem {
         ThreadGroup passengerGroup = new ThreadGroup("Passenger thread group");
 
         // Creates the appropriate passengers and technicians
-        Passenger passenger1 = new Passenger(ticketMachine, passengerGroup);
-        Passenger passenger2 = new Passenger(ticketMachine, passengerGroup);
-        Passenger passenger3 = new Passenger(ticketMachine, passengerGroup);
-        Passenger passenger4 = new Passenger(ticketMachine, passengerGroup);
+        Passenger passenger1 = new Passenger(ticketMachine, passengerGroup, 1);
+        Passenger passenger2 = new Passenger(ticketMachine, passengerGroup, 2);
+        Passenger passenger3 = new Passenger(ticketMachine, passengerGroup, 3);
+        Passenger passenger4 = new Passenger(ticketMachine, passengerGroup, 4);
         TicketPaperTechnician ticketPaperTechnician = new TicketPaperTechnician(ticketMachine);
         TicketTonerTechnician ticketTonerTechnician = new TicketTonerTechnician(ticketMachine);
 
@@ -42,7 +42,7 @@ public class TicketPrintingSystem {
         }
 
         /*Prints a final status message informing that threads have finished running
-         and providing the remaining values for the paper and toner*/
+         and providing the amount of tickets printed and remaining values for the paper and toner*/
         System.out.println(ticketMachine.finalTicketMachine());
     }
 }

@@ -37,6 +37,7 @@ public class TicketTonerTechnician implements Runnable {
                     System.out.println("No toner refill needed... waiting.");
                     loopsSpentWaiting++;
                     this.wait(sleepTime);
+                    this.notifyAll();
                 }
             }
             catch (InterruptedException error) {

@@ -1,6 +1,6 @@
 public interface ServiceTicketMachine {
 
-    void printTicket() throws InterruptedException;
+    void printTicket(int passengerNum) throws InterruptedException;
 
     void refillPaper();
 

@@ -17,10 +17,11 @@ public class TicketMachine implements ServiceTicketMachine {
     /*Checks the levels of paper and toner, if neither are empty then prints a ticket
      and reduces the levels appropriately, if one is empty then print the appropriate message*/
     @Override
-    public synchronized void printTicket() throws InterruptedException {
+    public synchronized void printTicket(int passengerNum) throws InterruptedException {
         while(paperLevel == 0 || tonerLevel == 0) {
             try {
                 this.wait(3000);
+                System.out.println("Passenger " + passengerNum + " is waiting to print..");
             }
             catch (InterruptedException e) {
                 throw new RuntimeException(e);

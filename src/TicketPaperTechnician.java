@@ -39,6 +39,7 @@ public class TicketPaperTechnician implements Runnable {
                     System.out.println("No paper refill needed... waiting.");
                     loopsSpentWaiting++;
                     this.wait(sleepTime);
+                    this.notifyAll();
                 }
             } catch (InterruptedException error) {
                 throw new RuntimeException(error);
