@@ -1,6 +1,10 @@
 const INITIAL_PAPER = 3
+
 const MAX_PAPER = 5
 const MAX_TONER = 5
+
+const MIN_PRINT = 1
+const MAX_PRINT = 8
 
 range PAPER_LEVEL = 0..MAX_PAPER
 range TONER_LEVEL = 0..MAX_TONER
@@ -8,13 +12,22 @@ INITIAL_CAPACITY = PAPER_LEVEL[3].
 
 
 PAPER_TECH = (checkPaper[level:PAPER_LEVEL] -> 
-				if level > 0 then (wait -> PAPER_TECH)
-				else (refillPaper -> PAPER_TECH) ).
+				if level > 0 then (paper.wait -> PAPER_TECH)
+				else (refillPaper -> paper.wait -> PAPER_TECH) ).
 
 TONER_TECH = (checkToner[level:TONER_LEVEL] -> 
-				if level > 0 then (wait -> TONER_TECH)
-				else (refillToner -> TONER_TECH) ).
+				if level > 0 then (toner.wait -> TONER_TECH)
+				else (refillToner -> toner.wait -> TONER_TECH) ).
 
-PASSENGER = ( initialise[PAPER_LEVEL] -> print -> PASSENGER ) .
-
+PASSENGER = ( ticketsToPrint[tickets: MIN_PRINT..MAX_PRINT] ->
+			  paperLevel[paper: 0..1] ->
+			  if paper > 0 
+				then (tonerLevel[toner: 0..1] ->
+						if toner > 0
+							then (when(tickets > 1) print -> PASSENGER | when(tickets == 1) print -> END)
+						else
+							(passenger.wait -> PASSENGER))
+			  else
+				(passenger.wait -> PASSENGER)).
+	
 || TICKET_MACHINE = ( PASSENGER || PAPER_TECH || TONER_TECH ) .
