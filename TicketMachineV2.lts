@@ -1,0 +1,36 @@
+const MAX_PAPER = 5
+const MAX_TONER = 5
+
+range PAPER_CAPACITY = 0 .. MAX_PAPER
+range TONER_CAPACITY = 0 .. MAX_TONER
+
+const MIN_PRINT = 1
+const MAX_PRINT = 8
+
+range TICKETS_TO_PRINT = MIN_PRINT .. MAX_PRINT
+
+PAPER_TECH(INITIAL_PAPER = 3) = Paper[INITIAL_PAPER] ,
+
+Paper[currentPaper : PAPER_CAPACITY] = (when(currentPaper == 0) machine.acquire -> Paper[MAX_PAPER]
+									   | when(currentPaper > 0) machine.acquire -> Paper[currentPaper - 1]).
+
+TONER_TECH(INITIAL_TONER = MAX_TONER) = Toner[INITIAL_TONER] ,
+
+Toner[currentToner : TONER_CAPACITY] = (checkToner[currentToner] -> Toner[currentToner]
+										| when(currentToner == 0) machine.acquire -> refillToner -> machine.release -> Toner[MAX_TONER]
+										| when(currentToner > 0) machine.acquire -> machine.release -> Toner[currentToner - 1]).
+
+PASSENGER(TICKETS = 8) = Passenger[TICKETS] ,
+
+Passenger[currentTickets : TICKETS_TO_PRINT] =	(remainingTickets[currentTickets] -> Passenger[currentTickets]
+												| when(currentTickets > 1) machine.acquire -> machine.release -> Passenger[currentTickets - 1]
+											  	| when(currentTickets == 1) machine.acquire -> machine.release -> END).
+
+TICKET_MACHINE(INITIAL_PAPER = 3) = Machine[INITIAL_PAPER] ,
+
+Machine[currentPaper : PAPER_CAPACITY] = (checkPaper[currentPaper] -> Machine[currentPaper]
+										| when(currentPaper > 0) acquire -> printTicket -> release -> Machine[currentPaper - 1]
+										| when(currentPaper == 0) acquire -> refillPaper -> release -> Machine[MAX_PAPER]).
+
+||PURCHASE_TICKET_SYSTEM = (ps: PASSENGER || p:PAPER_TECH || t:TONER_TECH || {p, ps} :: machine : TICKET_MACHINE) .
+
