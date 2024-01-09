@@ -20,8 +20,10 @@ public class TicketMachine implements ServiceTicketMachine {
     public synchronized void printTicket(int passengerNum) throws InterruptedException {
         while(paperLevel == 0 || tonerLevel == 0) {
             try {
-                this.wait(3000);
-                System.out.println("Passenger " + passengerNum + " is waiting to print..");
+                this.wait(5000);
+                if (paperLevel == 0 || tonerLevel == 0) {
+                    System.out.println("Passenger " + passengerNum + " is waiting to print..");
+                }
             }
             catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -30,7 +32,7 @@ public class TicketMachine implements ServiceTicketMachine {
 
         if (paperLevel > 0 && tonerLevel > 0) {
             Ticket ticket = new Ticket();
-            System.out.println("Printing Ticket #" + ticket.getNumOfTickets());
+            System.out.println("Printing Ticket #" + ticket.getNumOfTickets() + " (Passenger " + passengerNum + ")");
 
             paperLevel--;
             tonerLevel -= TONER_COST;
@@ -54,7 +56,7 @@ public class TicketMachine implements ServiceTicketMachine {
     }
 
 
-    // Checks if toner is empty, if so refills it to max capacity (100)
+    // Checks if toner is empty, if so refills it to max capacity (50)
     @Override
     public synchronized void refillToner() {
         if (tonerLevel < MAX_TONER_CAPACITY) {
