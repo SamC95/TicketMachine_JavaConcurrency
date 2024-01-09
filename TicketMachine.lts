@@ -1,0 +1,45 @@
+// Initial amount of paper the program starts with
+const INITIAL_PAPER = 3
+
+// Max amount of paper and toner (in Java program toner is set to 50 and uses 10 per use)
+const MAX_PAPER = 5
+const MAX_TONER = 5
+
+// Boolean determining if the user has one or more tickets to print
+const MIN_PRINT = 1
+const MAX_PRINT = 5
+
+//represents the boolean for if paper and toner are empty or not
+range PAPER_LEVEL = 0..1
+range TONER_LEVEL = 0..1
+
+// Checks if paper level is empty or not, if it isn't then waits, if it is then refills and then waits
+PAPER_TECH = (checkPaper[level:PAPER_LEVEL] -> 
+				if level > 0 then (paper.wait -> PAPER_TECH)
+				else (refillPaper -> paper.wait -> PAPER_TECH) ).
+
+// Checks if toner level is empty or not, if it isn't then waits, if it is then refills and then waits
+TONER_TECH = (checkToner[level:TONER_LEVEL] -> 
+				if level > 0 then (toner.wait -> TONER_TECH)
+				else (refillToner -> toner.wait -> TONER_TECH) ).
+
+// Model gives the option of ticketsToPrint which is either one remaining or more than one
+// It then checks if the paper level is empty or not, if it isn't then it will perform the same check on the toner
+// if the toner also isn't empty then it will perform a check to see how many tickets remain to be printed
+// when it's more than 1 ticket remaining it will print and then loop back to the start, whereas if
+// it's the last ticket to be printed, it will print that ticket and then end execution.
+// if either paper or toner is 0 then it will wait.
+TICKET_MACHINE = ( paperLevel[paper: 0..1] ->
+			  if paper > 0 
+				then (tonerLevel[toner: 0..1] ->
+						if toner > 0
+							then (ticketsToPrint[tickets: MIN_PRINT..MAX_PRINT] ->
+								( when(tickets > MIN_PRINT) print -> machine.wait -> PASSENGER
+				   				| when(tickets == MIN_PRINT) print -> END))
+						else
+							(machine.wait -> TICKET_MACHINE))
+			  else
+				(machine.wait -> TICKET_MACHINE)).
+
+				 
+|| PURCHASE_TICKET_SYSTEM = ( TICKET_MACHINE || PAPER_TECH || TONER_TECH ) .

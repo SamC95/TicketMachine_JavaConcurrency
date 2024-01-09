@@ -1,0 +1,43 @@
+const MAX_PAPER = 5
+const MAX_TONER = 5
+
+range PAPER_CAPACITY = 0 .. MAX_PAPER
+range TONER_CAPACITY = 0 .. MAX_TONER
+
+const MIN_PRINT = 1
+const MAX_PRINT = 8
+
+range TICKETS_TO_PRINT = MIN_PRINT .. MAX_PRINT
+
+PAPER_TECH(INITIAL_PAPER = 3) = Paper[INITIAL_PAPER] ,
+
+Paper[currentPaper : PAPER_CAPACITY] = (when(currentPaper == 0) p.acquire -> refillPaper -> p.release -> Paper[MAX_PAPER]
+									   | when(currentPaper > 0) p.acquire -> p.wait -> p.release -> Paper[currentPaper - 1]).
+
+TONER_TECH(INITIAL_TONER = MAX_TONER) = Toner[INITIAL_TONER] ,
+
+Toner[currentToner : TONER_CAPACITY] = (checkToner[currentToner] -> Toner[currentToner]
+										| when(currentToner == 0) t.acquire -> refillToner -> t.release -> Toner[MAX_TONER]
+										| when(currentToner > 0) t.acquire -> t.release -> Toner[currentToner - 1]).
+
+PASSENGER(TICKETS = 8) = Passenger[TICKETS] ,
+
+Passenger[currentTickets : TICKETS_TO_PRINT] =	(remainingTickets[currentTickets] -> Passenger[currentTickets]
+												| when(currentTickets > 1) ps.acquire -> ps.printTicket -> ps.release -> Passenger[currentTickets - 1]
+											  	| when(currentTickets == 1) ps.acquire -> ps.printTicket -> ps.release -> ps.finish -> END).
+
+PAPER_MACHINE(INITIAL_PAPER = 3) = Paper_Machine[INITIAL_PAPER] ,
+
+Paper_Machine[currentPaper : PAPER_CAPACITY] = (checkPaper[currentPaper] -> Paper_Machine[currentPaper]
+										| when(currentPaper > 0) ps.acquire -> ps.printTicket -> ps.release -> Paper_Machine[currentPaper - 1]
+										| when(currentPaper == 0) p.acquire -> p.refillPaper -> p.release -> Paper_Machine[MAX_PAPER]).
+
+TONER_MACHINE(INITIAL_TONER = 5) = Toner_Machine[INITIAL_TONER] ,
+
+Toner_Machine[currentToner : TONER_CAPACITY] = (checkToner[currentToner] -> Toner_Machine[currentToner]
+											   | when (currentToner > 0) ps.acquire -> ps.printTicket -> ps.release -> Toner_Machine[currentToner - 1]
+											   | when (currentToner == 0) t.acquire -> t.refillToner -> t.release -> Toner_Machine[MAX_TONER]).
+
+||TICKET_MACHINE(INITIAL_PAPER = 3, INITIAL_TONER = 5) = (PAPER_MACHINE || TONER_MACHINE).
+
+||PURCHASE_TICKET_SYSTEM = (PASSENGER || PAPER_TECH || TONER_TECH || TICKET_MACHINE) .
