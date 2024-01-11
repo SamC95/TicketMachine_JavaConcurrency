@@ -1,45 +1,45 @@
-// Initial amount of paper the program starts with
-const INITIAL_PAPER = 3
-
-// Max amount of paper and toner (in Java program toner is set to 50 and uses 10 per use)
 const MAX_PAPER = 5
 const MAX_TONER = 5
 
-// Boolean determining if the user has one or more tickets to print
+range PAPER_CAPACITY = 0 .. MAX_PAPER
+range TONER_CAPACITY = 0 .. MAX_TONER
+
 const MIN_PRINT = 1
-const MAX_PRINT = 5
+const MAX_PRINT = 8
 
-//represents the boolean for if paper and toner are empty or not
-range PAPER_LEVEL = 0..1
-range TONER_LEVEL = 0..1
+range TICKETS_TO_PRINT = MIN_PRINT .. MAX_PRINT
 
-// Checks if paper level is empty or not, if it isn't then waits, if it is then refills and then waits
-PAPER_TECH = (checkPaper[level:PAPER_LEVEL] -> 
-				if level > 0 then (paper.wait -> PAPER_TECH)
-				else (refillPaper -> paper.wait -> PAPER_TECH) ).
+PAPER_TECH(INITIAL_PAPER = 3) = Paper[INITIAL_PAPER] ,
 
-// Checks if toner level is empty or not, if it isn't then waits, if it is then refills and then waits
-TONER_TECH = (checkToner[level:TONER_LEVEL] -> 
-				if level > 0 then (toner.wait -> TONER_TECH)
-				else (refillToner -> toner.wait -> TONER_TECH) ).
+Paper[currentPaper : PAPER_CAPACITY] = (when(currentPaper == 0) p.acquire -> refillPaper -> p.release -> Paper[MAX_PAPER]
+									   | when(currentPaper > 0) p.acquire -> p.wait -> p.release -> Paper[currentPaper - 1]).
 
-// Model gives the option of ticketsToPrint which is either one remaining or more than one
-// It then checks if the paper level is empty or not, if it isn't then it will perform the same check on the toner
-// if the toner also isn't empty then it will perform a check to see how many tickets remain to be printed
-// when it's more than 1 ticket remaining it will print and then loop back to the start, whereas if
-// it's the last ticket to be printed, it will print that ticket and then end execution.
-// if either paper or toner is 0 then it will wait.
-TICKET_MACHINE = ( paperLevel[paper: 0..1] ->
-			  if paper > 0 
-				then (tonerLevel[toner: 0..1] ->
-						if toner > 0
-							then (ticketsToPrint[tickets: MIN_PRINT..MAX_PRINT] ->
-								( when(tickets > MIN_PRINT) print -> machine.wait -> PASSENGER
-				   				| when(tickets == MIN_PRINT) print -> END))
-						else
-							(machine.wait -> TICKET_MACHINE))
-			  else
-				(machine.wait -> TICKET_MACHINE)).
+TONER_TECH(INITIAL_TONER = MAX_TONER) = Toner[INITIAL_TONER] ,
 
-				 
-|| PURCHASE_TICKET_SYSTEM = ( TICKET_MACHINE || PAPER_TECH || TONER_TECH ) .
+Toner[currentToner : TONER_CAPACITY] =  (when(currentToner == 0) t.acquire -> refillToner -> t.release -> Toner[MAX_TONER]
+										| when(currentToner > 0) t.acquire -> t.release -> Toner[currentToner - 1]).
+
+
+PASSENGER(TICKETS = MAX_PRINT) = Passenger[TICKETS] ,
+
+Passenger[currentTickets : TICKETS_TO_PRINT] =	(remainingTickets[currentTickets] -> Passenger[currentTickets]
+												| when(currentTickets > 1) ps.acquire -> ps.printTicket -> ps.release -> Passenger[currentTickets - 1]
+											  	| when(currentTickets == 1) ps.acquire -> ps.printTicket -> ps.release -> ps.finish -> END).
+
+PAPER_MACHINE(INITIAL_PAPER = 3) = Paper_Machine[INITIAL_PAPER] ,
+
+Paper_Machine[currentPaper : PAPER_CAPACITY] = (checkPaper[currentPaper] -> Paper_Machine[currentPaper]
+										| when(currentPaper > 0) ps.acquire -> ps.printTicket -> ps.release -> Paper_Machine[currentPaper - 1]
+										| when(currentPaper == 0) p.acquire -> p.wait -> p.refillPaper -> p.release -> Paper_Machine[MAX_PAPER]
+										| when(currentPaper > 0) p.acquire -> p.wait -> p.release -> Paper_Machine[currentPaper]).
+
+TONER_MACHINE(INITIAL_TONER = 5) = Toner_Machine[INITIAL_TONER] ,
+
+Toner_Machine[currentToner : TONER_CAPACITY] = (checkToner[currentToner] -> Toner_Machine[currentToner]
+											   | when (currentToner > 0) ps.acquire -> ps.printTicket -> ps.release -> Toner_Machine[currentToner - 1]
+											   | when (currentToner == 0) t.acquire -> t.refillToner -> t.release -> Toner_Machine[MAX_TONER]
+											   | when (currentToner > 0) t.acquire -> t.wait -> t.release -> Toner_Machine[currentToner]).
+
+||TICKET_MACHINE(INITIAL_PAPER = 3, INITIAL_TONER = 5) = (PAPER_MACHINE || TONER_MACHINE).
+
+||PURCHASE_TICKET_SYSTEM = (PASSENGER || PAPER_TECH || TONER_TECH || TICKET_MACHINE) .

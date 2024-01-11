@@ -1,0 +1,172 @@
+Example Run #1 - Passenger left waiting (Out of paper)
+
+Printing Ticket #1 (Passenger 1)
+Printing Ticket #2 (Passenger 4)
+Printing Ticket #3 (Passenger 3)
+No toner refill needed... waiting.
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 1)
+Printing Ticket #4 (Passenger 4)
+Printing Ticket #5 (Passenger 3)
+Passenger 2 is waiting to print..
+Passenger 1 is waiting to print..
+Passenger 4 is waiting to print..
+No paper refill needed... waiting.
+Passenger 3 is waiting to print..
+Refilling 50 to toner levels
+Toner technician refilled toner (Refill 1)
+Printing Ticket #6 (Passenger 2)
+Printing Ticket #7 (Passenger 1)
+Printing Ticket #8 (Passenger 2)
+Passenger 4 is waiting to print..
+Passenger 3 is waiting to print..
+No toner refill needed... waiting.
+Passenger 4 is waiting to print..
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 2)
+Printing Ticket #9 (Passenger 3)
+Printing Ticket #10 (Passenger 2)
+Passenger 1 is waiting to print..
+No paper refill needed... waiting.
+Passenger 4 is waiting to print..
+Refilling 50 to toner levels
+Toner technician refilled toner (Refill 2)
+Printing Ticket #11 (Passenger 1)
+Printing Ticket #12 (Passenger 3)
+Printing Ticket #13 (Passenger 4)
+Passenger 4 finished printing tickets
+Passenger 2 is waiting to print..
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 3)
+Paper technician finished paper refills.
+Printing Ticket #14 (Passenger 3)
+No toner refill needed... waiting.
+Printing Ticket #15 (Passenger 3)
+Passenger 2 is waiting to print..
+Passenger 1 is waiting to print..
+Passenger 3 is waiting to print..
+Passenger 2 is waiting to print..
+Passenger 1 is waiting to print..
+Refilling 50 to toner levels
+Toner technician refilled toner (Refill 3)
+Toner technician finished toner refills
+Printing Ticket #16 (Passenger 3)
+Passenger 3 finished printing tickets
+Printing Ticket #17 (Passenger 2)
+Printing Ticket #18 (Passenger 1)
+Passenger 2 is waiting to print..
+Passenger 1 is waiting to print..
+Passenger 2 is waiting to print..
+Passenger 1 is waiting to print..
+Passenger 2 is waiting to print..
+Passenger 1 is waiting to print..
+
+
+
+Example Run #2 - Program Complete (Toner exits before 3 refills)
+
+(Note: I included code that will make the paper or toner tech stop attempting to refill if it has had 5 attempts without needing to refill, so that if the passengers have finished printing but the number of refills have not been met; the program will be still able to reach a "complete" state, however without this check the paper/toner techs would also get stuck in an infinite loop of checking and waiting like the passenger can (shown in example 1).
+
+Printing Ticket #1 (Passenger 1)
+Printing Ticket #2 (Passenger 2)
+Passenger 2 finished printing tickets
+Printing Ticket #3 (Passenger 4)
+No toner refill needed... waiting.
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 1)
+Printing Ticket #4 (Passenger 3)
+Printing Ticket #5 (Passenger 1)
+Passenger 4 is waiting to print..
+No paper refill needed... waiting.
+Refilling 50 to toner levels
+Toner technician refilled toner (Refill 1)
+Printing Ticket #6 (Passenger 1)
+Printing Ticket #7 (Passenger 1)
+Printing Ticket #8 (Passenger 4)
+No toner refill needed... waiting.
+Passenger 3 is waiting to print..
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 2)
+Printing Ticket #9 (Passenger 3)
+Passenger 3 finished printing tickets
+Printing Ticket #10 (Passenger 1)
+Passenger 1 finished printing tickets
+Passenger 4 is waiting to print..
+Refilling 50 to toner levels
+Toner technician refilled toner (Refill 2)
+No paper refill needed... waiting.
+Printing Ticket #11 (Passenger 4)
+No toner refill needed... waiting.
+Printing Ticket #12 (Passenger 4)
+Printing Ticket #13 (Passenger 4)
+Passenger 4 finished printing tickets
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 3)
+Paper technician finished paper refills.
+No toner refill needed... waiting.
+No toner refill needed... waiting.
+No toner refill needed... waiting.
+Passengers finished printing tickets, toner refill attempts stopped.
+Toner technician finished toner refills
+--------------------------------------
+All threads have finished execution 
+Tickets Printed: 13
+Paper Remaining: 5
+Toner Remaining: 20
+
+
+Example Run #3 - Program Complete (All threads completed expected tasks fully)
+
+Printing Ticket #1 (Passenger 4)
+Printing Ticket #2 (Passenger 3)
+Printing Ticket #3 (Passenger 1)
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 1)
+Printing Ticket #4 (Passenger 4)
+Printing Ticket #5 (Passenger 3)
+Refilling 50 to toner levels
+Toner technician refilled toner (Refill 1)
+Printing Ticket #6 (Passenger 1)
+No paper refill needed... waiting.
+Printing Ticket #7 (Passenger 4)
+Printing Ticket #8 (Passenger 3)
+Passenger 2 is waiting to print..
+No toner refill needed... waiting.
+Passenger 1 is waiting to print..
+Passenger 2 is waiting to print..
+Passenger 3 is waiting to print..
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 2)
+Printing Ticket #9 (Passenger 4)
+Printing Ticket #10 (Passenger 4)
+Passenger 4 finished printing tickets
+Passenger 1 is waiting to print..
+Passenger 2 is waiting to print..
+Passenger 3 is waiting to print..
+Refilling 50 to toner levels
+Toner technician refilled toner (Refill 2)
+No paper refill needed... waiting.
+No toner refill needed... waiting.
+Printing Ticket #11 (Passenger 1)
+Printing Ticket #12 (Passenger 2)
+Passenger 2 finished printing tickets
+Printing Ticket #13 (Passenger 3)
+Passenger 3 finished printing tickets
+Passenger 1 is waiting to print..
+No toner refill needed... waiting.
+Refilling 5 sheets of paper
+Paper technician refilled paper (Refill 3)
+Paper technician finished paper refills.
+Printing Ticket #14 (Passenger 1)
+Printing Ticket #15 (Passenger 1)
+Refilling 50 to toner levels
+Toner technician refilled toner (Refill 3)
+Toner technician finished toner refills
+Printing Ticket #16 (Passenger 1)
+Printing Ticket #17 (Passenger 1)
+Passenger 1 finished printing tickets
+--------------------------------------
+All threads have finished execution 
+Tickets Printed: 17
+Paper Remaining: 1
+Toner Remaining: 30
