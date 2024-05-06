@@ -3,13 +3,13 @@
 By [Sam Clark](https://github.com/SamC95)
 
 ## Contents
-* Project Brief
-* Technologies
-* Responsibilities
-* Key Learnings
-* Achievements
-* Challenges
-* Conclusions
+* [Project Brief](https://github.com/SamC95/TicketMachine_JavaConcurrency#project-brief)
+* [Technologies](https://github.com/SamC95/TicketMachine_JavaConcurrency#technologies)
+* [Responsibilities](https://github.com/SamC95/TicketMachine_JavaConcurrency#responsibilities)
+* [Key Learnings](https://github.com/SamC95/TicketMachine_JavaConcurrency#key-learnings)
+* [Achievements](https://github.com/SamC95/TicketMachine_JavaConcurrency#achievements)
+* [Challenges](https://github.com/SamC95/TicketMachine_JavaConcurrency#challenges)
+* [Conclusions](https://github.com/SamC95/TicketMachine_JavaConcurrency#conclusions)
 
 ## Project Brief
 * Develop FSP Processes to model the Ticket Machine, Passengers, and Technicians
