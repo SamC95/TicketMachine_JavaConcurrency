@@ -2,6 +2,8 @@
 ## Ticket Machine
 By [Sam Clark](https://github.com/SamC95)
 
+This project was coursework for my third year module: Concurrent Systems -- at the University of Westminster 
+
 ## Contents
 * [Project Brief](https://github.com/SamC95/TicketMachine_JavaConcurrency#project-brief)
 * [Technologies](https://github.com/SamC95/TicketMachine_JavaConcurrency#technologies)
