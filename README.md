@@ -41,7 +41,7 @@ Below shows the code in the LTSA tool:
 
 ![image](https://github.com/SamC95/TicketMachine_JavaConcurrency/assets/132593571/078ee3d4-fb24-41d2-b59d-b8eb4a98f706)
 
-Below shows an example of the animated version of the Finite State Processes: 
+Below shows an example of the animated version of the Finite State Processes showing the steps: 
 
 ![image](https://github.com/SamC95/TicketMachine_JavaConcurrency/assets/132593571/32918ec3-4dde-4b34-9ba4-838d274b329b)
 
