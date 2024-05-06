@@ -97,7 +97,8 @@ The toner technician and paper technician function essentially in the same fashi
 
 ## Achievements
 
-* Effectively managed to implement the concurrency features of Java and achieved high marks on the coursework as a result.
+* Effectively managed to implement the concurrency features of Java.
+* Translated the design from the FSP to a multi-threaded Java application.
 
 ## Challenges
 
