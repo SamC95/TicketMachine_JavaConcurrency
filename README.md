@@ -7,7 +7,7 @@ This project was coursework for my third year module: Concurrent Systems -- at t
 ## Contents
 * [Project Brief](https://github.com/SamC95/TicketMachine_JavaConcurrency#project-brief)
 * [Technologies](https://github.com/SamC95/TicketMachine_JavaConcurrency#technologies)
-* [Responsibilities](https://github.com/SamC95/TicketMachine_JavaConcurrency#responsibilities)
+* [Implementation](https://github.com/SamC95/TicketMachine_JavaConcurrency#implementation)
 * [Key Learnings](https://github.com/SamC95/TicketMachine_JavaConcurrency#key-learnings)
 * [Achievements](https://github.com/SamC95/TicketMachine_JavaConcurrency#achievements)
 * [Challenges](https://github.com/SamC95/TicketMachine_JavaConcurrency#challenges)
@@ -31,7 +31,7 @@ This project was coursework for my third year module: Concurrent Systems -- at t
 * [Labelled Transition System Analyser (LTSA)](https://www.doc.ic.ac.uk/ltsa/)
 * [IntelliJ](https://www.jetbrains.com/idea/)
 
-## Responsibilities
+## Implementation
 
 ### LTSA Phase
 
